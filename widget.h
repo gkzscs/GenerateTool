@@ -22,6 +22,7 @@ private:
     void addClassName(QString &str, const QString &name);
     QString genDefine(const QString &str);
     QString parseClassName(const QString &str);
+    QString genHeadTemplate() const;
 
 private:
     // For resource path
@@ -42,6 +43,8 @@ private slots:
     void on_btnGenius_clicked();
 
     void on_btnResPath_clicked();
+
+    void on_btnHeadTemp_clicked();
 
 private:
     Ui::Widget *ui;

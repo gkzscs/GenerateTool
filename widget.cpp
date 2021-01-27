@@ -80,6 +80,36 @@ QString Widget::parseClassName(const QString &str)
     return name;
 }
 
+QString Widget::genHeadTemplate() const
+{
+    QString clsName = ui->editOrigin->toPlainText();
+    QString headTemp = R"(
+                       class EntityCardHead : public cs::CSWidget
+                       {
+                           Q_OBJECT
+
+                       public:
+                           EntityCardHead(QWidget *parent = nullptr);
+                           virtual ~EntityCardHead() override;
+
+                       protected:
+                           void initMember();
+                           void initUI();
+
+                       protected:
+                           void resizeUI();
+
+                       protected:
+                           void resizeEvent(QResizeEvent *event) override;
+
+                       };
+                       )";
+    headTemp = headTemp.replace("EntityCardHead", clsName);
+
+    ui->editResult->setText(headTemp);
+    return headTemp;
+}
+
 // Generate resource alias
 QString Widget::parseResourceName(const QString &str)
 {
@@ -161,5 +191,13 @@ void Widget::on_btnResPath_clicked()
 {
     on_btnPaste_clicked();
     genResourceAlias();
+    on_btnCopyRes_clicked();
+}
+
+void Widget::on_btnHeadTemp_clicked()
+{
+    on_btnClearAll_clicked();
+    on_btnPaste_clicked();
+    genHeadTemplate();
     on_btnCopyRes_clicked();
 }
